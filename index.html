@@ -1,93 +1,647 @@
 <!DOCTYPE html>
-<html id="index">
-<html>
+<html lang="fr">
 <head>
-	<title>AEENI-accueil</title>
-	<meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="index.css">
-    <script type="text/javascript" src="navigation.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEENI - Association des Étudiants ENI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            bottom: -80px;
+            left: -80px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideDown 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: slideUp 0.8s ease 0.2s both;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Container */
+        .section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 1rem auto 0;
+        }
+
+        /* News Section */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .news-card-content {
+            padding: 2rem;
+        }
+
+        .news-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #333;
+        }
+
+        .news-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Journey Section */
+        .journey-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .journey-item {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+
+        .journey-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .journey-item img {
+            width: 40%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .journey-item-content {
+            width: 60%;
+        }
+
+        .journey-item-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .journey-item-content p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Merch Section */
+        .merch-section {
+            background: white;
+        }
+
+        .merch-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .merch-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .merch-images img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .merch-images img:hover {
+            transform: scale(1.05);
+        }
+
+        .merch-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .merch-content p {
+            font-size: 1.05rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-button-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Partners Section */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .partner-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .partner-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .partner-logo img {
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 3rem 5%;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: #bbb;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .footer-contact {
+            color: #bbb;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-contact a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: white;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            text-align: center;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .journey-item {
+                flex-direction: column !important;
+                gap: 2rem;
+            }
+
+            .journey-item img {
+                width: 100%;
+            }
+
+            .journey-item-content {
+                width: 100%;
+            }
+
+            .merch-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <script type="text/javascript" src="header.js"></script>
-   <h1 id="titre"></h1>
-   <script type="text/javascript" src="animateTitle.js"></script>
-</body>
-<article id="main">
-   <div style="text-align: center;">
-   <h1 class="article">Actualités</h1>
-   <div class="actu" id="actu1">
-        <img style="width: 1000px;position: relative;right: 25%;" src="image/club3.png">
-        <div class="slideText"><h3 class="titreactu">Actualités sur les clubs de<br> l'ENI</h3><p class="suite">L'équipe de basket<br>part pour Antananarivo,<br>participer au SMATCHIN</p></div>
-   </div>
-   <div class="actu" id="actu2">
-       <img style="width: 500px;" src="image/dev.jpg">
-        <div class="slideText"><h3 class="titreactu">Compétitions organisés par<br>l'AEENI</h3><p class="suite">L'AEENI lance la première<br>édition de la compétition <br>DEVHUNT </p></div>
-   </div>
-   <div class="actu" id="actu3">
-       <img style="position: relative;right: 100%;"  src="image/rnc2.jpg">
-       <div class="slideText"><h3 class="titreactu">Evènemets organisés avec les partenaires</h3><p class="suite">En collaboration avec RELIA,<br>l'AEENI a pu organiser le<br>Rising Newbies Contest<br>éditions 2022<p></div>
-   </div>
-   <script type="text/javascript" src="clubSlide.js"></script>
-   <div id="apropos">
-           <h1 class="article" style="color: white;">Parcours</h1>
-           <img id="eni" src="image/ENI.jpg">
-           <p class="present" >L'AEENI est l'association des étudiants de la préstigieuse école nationale d'informatique<br>situé à Fianarantsoa et Tuléar.</p>
-           <img id="imageclub" src="image/chorale.JPG">
-           <p class="present" style="margin-top: 10%;">Au cours des années, l'association a eu le temps de se développer<br> et compte aujourd'hui plusieurs clubs à son actif tel que C2E ou encore<br>le club de dance.</p>
-           <img id="competimage" src="image/cadeau.jpg">
-           <p class="present" style="margin-top: 15%;">Grâce à ses nombreux exploits, l'AEENI a gagné de plus en plus en<br>visibilité et peut aujourd'hui compter sur l'aide de ses partenaires<br>dans le cadre de ses activités.</p>
-           <img id="futur" src="image/compet.jpg">
-           <p class="present" style="margin-top: 13%">Actuellement, l'AEENI fait la fierté de son établissement<br>et elle pousse chaque élève à donner le maximum de lui-même <br>à l'aide des compétitions qu'elle organise.</p>
-           <img id="fierte" src="image/victoire.jpg">
-           <p class="present" style="margin-top: 15%;">L'association compte aujourd'hui dans ces membres, l'élite nationale;<br> des étudiants autant déterminer que fier d'appartenir à l'AEENI.</p>
-    </div>
-    <div style="clear: both; text-align: left;padding-bottom: 10px;">
-            <img class="ad" src="image/smatchin2.png">
-            <img class="ad" style="margin-left: -22%;right: 6px;" src="image/Mug1.png">
-            <img class="ad" style="margin-left: -22%;right: 12px; " src="image/Mug2.png">
-            <img class="ad" style="margin-left: -22%;right: 18px;"  src="image/teehs.jpg">
-            <img class="ad" style="margin-left: -22%;right: 24px;"  src="image/cup.jpg">
-            <p id="pub">Pourquoi coder alors que vous n'êtes carrément pas dans votre aise?<br>Passez commande sur notre page facebook et recevez nos tee-shirts et<br> nos mugs qui rendront votre experience plus agréable:<br><br><a href="" target="blank" title="Lien vers facebook" id="bouton">Passer une commande</a></p>
-    </div>
-</article>
-    <script type="text/javascript" src="ad.js"></script>
-    <footer style="clear: both;">
-    <p id="stylefoot">"La pépinière des élites informaticiennes Malagasy"</p>
-    <div style="display: inline-block;">
-        <h3 class="foottitle">Contacts de l'AEENI</h3>
-        <table>
-        <tr>
-            <td><p><img src="image/facebook.png" style="width: 17px;"><a href='https://mobile.facebook.com/groups/162416697294083?group_view_referrer=search' class="link" target="blank" title="Lien vers facebook">AEENI 2022</a></p></td>
-        <td>
-            <p><img src="image/gmail.png"> <a href="mailto:a.etudiant.eni@gmail.com" class="link" target="blank" title="Lien Email">a.etudiant.eni@gmail.com</a></p>
-        </td>
-        <td>
-            <p>📞<span style="color: rgb(250,185,120) ;">034 90 784 45</span></p>
-        </td>
-    </tr>
-    </table>
-    <div style="text-align: center">
-    <table style="margin-left: 9%;">
-    <h3 class="foottitle">Partenaires et clubs membres</h3>
-    	<tr>
-            <td><a target="blank" title="Lien vers un site web" href="https://m.univ-fianar.mg/?page_id=472"><img class="logo" src="image/logoENI.png"></a></td>
-    		<td><a target="blank" title="Lien vers un site web" href="https://arrato.mg"><img class="logo" src="image/arato.jpg"></a></td>
-    		<td><a target="blank" title="Lien vers facebook" href="https://m.facebook.com/Kalybot/"><img class="logo" src="image/Kaly.png"></a></td>
-    		<td><a target="blank" title="Lien vers fecebook" href="https://m.facebook.com/mahefa.numeric/"><img class="logo" src="image/mahef.png"></a></td>
-    		<td><a target="blank" title="Lien vers un site web" href="https://mg.linkedin.com>in>ng-academy"><img class="logo" src="image/NGA.png"></a></td>
-    		<td><a target="blank" title="Lien vers facebook" href="https://m.facebook.com/wecours-acceuil"><img class="logo" src="image/wecours.png"></a></td>
-            <td><a target="blank" title="Lien vers un site web" href="https://www.akata-goavana.com"><img class="logo" src="image/akata.png"></a></td>
-    	</tr>
-    	<tr>
-            <td></td>
-    	    <td><img class="logo" src="image/c2e.png"></td>
-    	    <td><img class="logo" src="image/c3lf.jpg"></td>
-    	    <td><img class="logo" src="image/c4m.jpg"></td>
-    	    <td><img class="logo" src="image/cyber.jpg"></td>
-    	</tr>    
-    </table>
-    </div>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">AEENI</div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#actualites">Actualités</a></li>
+                <li><a href="#parcours">Parcours</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>Bienvenue à l'AEENI</h1>
+            <p>La pépinière des élites informaticiennes malgaches</p>
+            <a href="#actualites" class="cta-button">Découvrez nos actualités</a>
+            <a href="#contact" class="cta-button">Nous contacter</a>
+        </div>
+    </section>
+
+    <!-- Actualités Section -->
+    <section id="actualites" class="section">
+        <h2 class="section-title">Nos Actualités</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <img src="image/club3.png" alt="Équipe de basket">
+                <div class="news-card-content">
+                    <h3>Équipe de Basketball</h3>
+                    <p>Notre équipe de basketball part pour Antananarivo, prête à participer au SMATCHIN. Un défi excitant nous attend !</p>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="image/dev.jpg" alt="Compétition DEVHUNT">
+                <div class="news-card-content">
+                    <h3>Compétition DEVHUNT</h3>
+                    <p>L'AEENI lance la première édition de DEVHUNT, une compétition innovante pour tester vos compétences en développement.</p>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="image/rnc2.jpg" alt="Rising Newbies Contest">
+                <div class="news-card-content">
+                    <h3>Rising Newbies Contest</h3>
+                    <p>En collaboration avec RELIA, nous avons organisé avec succès le Rising Newbies Contest édition 2022.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parcours Section -->
+    <section id="parcours" class="journey-section section">
+        <h2 class="section-title">Notre Parcours</h2>
+
+        <div class="journey-item">
+            <img src="image/ENI.jpg" alt="École Nationale d'Informatique">
+            <div class="journey-item-content">
+                <h3>Une École Prestigieuse</h3>
+                <p>L'AEENI est l'association des étudiants de la prestigieuse École Nationale d'Informatique, avec des campus à Fianarantsoa et Tuléar. Nous rassemblons les meilleurs talents informatiques de Madagascar.</p>
+            </div>
+        </div>
+
+        <div class="journey-item">
+            <img src="image/chorale.JPG" alt="Clubs de l'AEENI">
+            <div class="journey-item-content">
+                <h3>Des Clubs Diversifiés</h3>
+                <p>Au fil des années, l'association s'est développée avec plusieurs clubs à son actif : le club C2E, le club de danse, et bien d'autres. Chacun trouvant sa place pour s'épanouir.</p>
+            </div>
+        </div>
+
+        <div class="journey-item">
+            <img src="image/cadeau.jpg" alt="Partenaires">
+            <div class="journey-item-content">
+                <h3>Des Partenaires de Confiance</h3>
+                <p>Grâce à nos nombreux exploits, l'AEENI a gagné en visibilité et peut aujourd'hui compter sur le soutien de partenaires prestigieux pour ses activités.</p>
+            </div>
+        </div>
+
+        <div class="journey-item">
+            <img src="image/compet.jpg" alt="Compétitions">
+            <div class="journey-item-content">
+                <h3>L'Excellence en Compétition</h3>
+                <p>Actuellement, l'AEENI est la fierté de son établissement. Nous organisons des compétitions qui poussent chaque étudiant à donner le meilleur de lui-même.</p>
+            </div>
+        </div>
+
+        <div class="journey-item">
+            <img src="image/victoire.jpg" alt="Membres AEENI">
+            <div class="journey-item-content">
+                <h3>L'Élite Nationale</h3>
+                <p>L'association compte aujourd'hui parmi ses membres l'élite nationale. Des étudiants déterminés et fiers d'appartenir à l'AEENI, prêts à transformer Madagascar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Merch Section -->
+    <section id="merch" class="merch-section section">
+        <div class="merch-container">
+            <div class="merch-images">
+                <img src="image/smatchin2.png" alt="Merch SMATCHIN">
+                <img src="image/Mug1.png" alt="Mug AEENI">
+                <img src="image/Mug2.png" alt="Mug AEENI">
+                <img src="image/teehs.jpg" alt="T-shirt AEENI">
+            </div>
+            <div class="merch-content">
+                <h2>Notre Merchandise</h2>
+                <p>Supportez l'AEENI avec style ! Nos t-shirts, mugs et accessoires sont conçus pour rendre votre expérience plus agréable tout en affichant votre fierté d'être associé à nos valeurs.</p>
+                <p>Pourquoi coder dans l'inconfort quand vous pouvez le faire avec nos produits exclusifs ? Passez votre commande dès maintenant !</p>
+                <a href="https://mobile.facebook.com/groups/162416697294083" target="_blank" class="cta-button-primary">
+                    <i class="fab fa-facebook"></i> Passer une commande
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="section">
+        <h2 class="section-title">Nos Partenaires & Clubs</h2>
+        <div class="partners-grid">
+            <a href="https://m.univ-fianar.mg/?page_id=472" target="_blank" class="partner-logo">
+                <img src="image/logoENI.png" alt="ENI">
+            </a>
+            <a href="https://arrato.mg" target="_blank" class="partner-logo">
+                <img src="image/arato.jpg" alt="Arato">
+            </a>
+            <a href="https://m.facebook.com/Kalybot/" target="_blank" class="partner-logo">
+                <img src="image/Kaly.png" alt="Kalybot">
+            </a>
+            <a href="https://m.facebook.com/mahefa.numeric/" target="_blank" class="partner-logo">
+                <img src="image/mahef.png" alt="Mahefa Numeric">
+            </a>
+            <a href="https://mg.linkedin.com/company/ng-academy" target="_blank" class="partner-logo">
+                <img src="image/NGA.png" alt="NG Academy">
+            </a>
+            <a href="https://m.facebook.com/wecours-acceuil" target="_blank" class="partner-logo">
+                <img src="image/wecours.png" alt="WeCours">
+            </a>
+            <a href="https://www.akata-goavana.com" target="_blank" class="partner-logo">
+                <img src="image/akata.png" alt="Akata Goavana">
+            </a>
+            <div class="partner-logo">
+                <img src="image/c2e.png" alt="C2E Club">
+            </div>
+            <div class="partner-logo">
+                <img src="image/c3lf.jpg" alt="C3LF Club">
+            </div>
+            <div class="partner-logo">
+                <img src="image/c4m.jpg" alt="C4M Club">
+            </div>
+            <div class="partner-logo">
+                <img src="image/cyber.jpg" alt="Cyber Club">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>À Propos</h3>
+                <p>L'AEENI est l'association des étudiants de l'École Nationale d'Informatique, réunissant les talents informatiques de Madagascar pour créer l'excellence.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contacts</h3>
+                <div class="footer-contact">
+                    <div class="footer-contact-item">
+                        <i class="fab fa-facebook"></i>
+                        <a href="https://mobile.facebook.com/groups/162416697294083" target="_blank">AEENI 2022</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:a.etudiant.eni@gmail.com">a.etudiant.eni@gmail.com</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>034 90 784 45</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Nos Clubs</h3>
+                <p>
+                    • C2E<br>
+                    • C3LF<br>
+                    • C4M<br>
+                    • Cyber Club<br>
+                    • Club de Danse
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 AEENI - Association des Étudiants ENI. Tous droits réservés.</p>
+        </div>
     </footer>
+
 </body>
-</html>
 </html>
